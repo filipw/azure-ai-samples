@@ -2,6 +2,24 @@
 
 A collection of various interesting Azure AI Samples.
 
+## Installation
+
+Create the Python environment of your choice and install the required packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+Create an [Azure AI Foundry project](https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/create-projects?tabs=ai-studio) in Azure. Once ready, set the following environment variable (using `.env` file or directly in your shell):
+
+```bash
+AZURE_AI_PROJECT_CONNECTION_STRING=<Azure AI Project connection string>
+```
+
+> The Azure AI Inference samples may require additional environment variables. Those are documented in the code.
+
+## Contents
+
 | Sample Name | Description | Blog Post | Type |
 |-------------|-------------|-----------|------|
 | 💻 [AI Inference: Switching between models](./azure-ai-inference-model-switching/) | 📝 Using Azure AI Inference to easily switch between models running in Azure OpenAI, OpenAI, Github Models, Azure AI Serverless and local endpoints. | [Link](https://www.strathweb.com/2024/11/simplifying-the-ai-workflow-access-different-types-of-model-deployments-with-azure-ai-inference/) | Notebook |
