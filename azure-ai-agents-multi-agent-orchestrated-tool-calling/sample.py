@@ -25,10 +25,6 @@ def print_json(json_obj):
 
 def process_agent_run(project_client, thread_id, agent_id, message=None):
     """Process a run for an agent with the specified message"""
-    # add a 25-second pause before every run to avoid rate limits in constrained quota environments
-    print("⏱️ Pausing for 25 seconds to avoid rate limits...")
-    time.sleep(25)
-    
     if message:
         print(f"📄 Adding message for agent {agent_id}: {message}")
         # we can't set agent_id on the message creation directly so we will use a user message
