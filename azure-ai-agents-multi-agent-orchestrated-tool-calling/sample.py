@@ -1,4 +1,10 @@
-import os, time, json, re
+import sys, os
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+from helpers import print_json
+
+import time, json, re
 from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
 from azure.ai.projects.models import (
@@ -11,17 +17,6 @@ from dotenv import load_dotenv
 from app_functions import *
 
 load_dotenv()
-
-
-def print_json(json_obj):
-    """Pretty print JSON data"""
-    if isinstance(json_obj, str):
-        try:
-            json_obj = json.loads(json_obj)
-        except:
-            pass
-    print(json.dumps(json_obj, indent=2))
-
 
 def process_agent_run(project_client, thread_id, agent_id, message=None):
     """Process a run for an agent with the specified message"""
@@ -44,7 +39,6 @@ def process_agent_run(project_client, thread_id, agent_id, message=None):
     
     return run
 
-
 def process_run_with_tools(project_client, thread_id, run_id):
     """Process a run and handle any tool calls"""
     print(f"Processing run {run_id}")
@@ -52,7 +46,7 @@ def process_run_with_tools(project_client, thread_id, run_id):
     previous_status = None
 
     while run.status in ["queued", "in_progress", "requires_action"]:
-        time.sleep(1)
+        time.sleep(2)
         run = project_client.agents.get_run(thread_id=thread_id, run_id=run_id)
 
         if run.status == "requires_action" and isinstance(
@@ -250,15 +244,8 @@ Available specialized agents:
 - concert-search-agent: Specialized in finding concerts for specific artists/bands in locations
 - concert-booking-agent: Specialized in booking tickets for specific concerts
 
-IMPORTANT - Task Sequence:
-First, search for concerts: When a user asks for concert tickets, your first step should ALWAYS be to delegate to the concert-search-agent to find available concerts.
-
-Only after receiving search results: After the search agent has completed its task and returned concert information, THEN delegate to the concert-booking-agent with the specific concert ID found.
-
 DO NOT create a booking task until after you can see the search results.
-
 Always use the create_task function to delegate work to the specialized agents.
-DO NOT attempt to directly search for concerts or book tickets yourself as you do not have appropriate tools.
 """,
         tools=orchestration_functions.definitions,
     )
@@ -334,13 +321,7 @@ DO NOT attempt to directly search for concerts or book tickets yourself as you d
         print(f"\n📊 Current task queue status: {len(tasks)} tasks remaining")
     
     # add a final message triggering our orchestrator to summarize the conversation
-    print("\n🏁 All tasks completed, requesting final summary...")
-    process_agent_run(
-        project_client, 
-        thread.id, 
-        orchestrator_agent.id,
-        "Can you provide a final summary of the concert search and booking process?"
-    )
+    print("\n🏁 All tasks completed")
     
     # print conversation summary
     print_conversation_summary(project_client, thread.id, agent_ids)
