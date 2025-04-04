@@ -45,10 +45,7 @@ def search_concerts(band: str, location: str) -> str:
     for concert in CONCERT_DATA:
         if (band.lower() in concert["band"].lower() and
             location.lower() == concert["location"].lower()):
-            concert_result = concert.copy()
-            if "venue" in concert_result:
-                del concert_result["venue"]
-            results.append(concert_result)
+            results.append(concert)
     
     return json.dumps({"concerts": results})
 

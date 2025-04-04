@@ -1,20 +1,16 @@
-import os, time, json
+import sys, os
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+from helpers import print_json
+
+import time, json
 from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
 from azure.ai.projects.models import FunctionTool, RequiredFunctionToolCall, SubmitToolOutputsAction, ToolOutput
 from dotenv import load_dotenv
 from app_functions import *
-
 load_dotenv()
-
-def print_json(json_obj):
-    """Pretty print JSON data"""
-    if isinstance(json_obj, str):
-        try:
-            json_obj = json.loads(json_obj)
-        except:
-            pass
-    print(json.dumps(json_obj, indent=2))
 
 project_client = AIProjectClient.from_connection_string(
     credential=DefaultAzureCredential(), conn_str=os.environ["AZURE_AI_PROJECT_CONNECTION_STRING"]
