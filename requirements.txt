@@ -5,3 +5,4 @@ azure-core
 ipykernel
 python-dotenv
 jsonref
+semantic_kernel[azure]
