@@ -28,3 +28,4 @@ AZURE_AI_PROJECT_CONNECTION_STRING=<Azure AI Project connection string>
 | 💻 [AI Agents: Multi agent tool calling](./azure-ai-agents-multi-agent-tool-calling/) | 📝 Using Azure AI Agents for tool calling (multi-agent). | N/A | Program |
 | 💻 [AI Agents: Orchestrated agents with tools](./azure-ai-agents-multi-agent-orchestrated-tool-calling/) | 📝 Using Azure AI Agents (multi-agent) with a coordinating orchestrator agent. | N/A | Program |
 | 💻 [AI Agents: OpenAPI tool calling](./azure-ai-agents-openapi-tool/) | 📝 Using Azure AI Agents for calling tools defined via OpenAPI HTTP contract. | N/A | Program |
+| 💻 [Semantic Kernel + AI Agents: Tool calling](./azure-ai-agents-semantic-kernel-tool-calling) | 📝 Using Semantic Kernal with Azure AI Agents for tool calling | N/A | Program |
