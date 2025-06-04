@@ -22,10 +22,14 @@ if not tunnel_url:
 else:
     print(f"🔗 Using tunnel URL: {tunnel_url}")
 
-with open('./swagger.json', 'r') as f:
-    swagger_content = f.read()
-    swagger_content = swagger_content.replace("{TUNNEL_URL}", tunnel_url)
-    openapi_spec = jsonref.loads(swagger_content)
+try:
+    with open('./swagger.json', 'r') as f:
+        swagger_content = f.read()
+        swagger_content = swagger_content.replace("{TUNNEL_URL}", tunnel_url)
+        openapi_spec = jsonref.loads(swagger_content)
+except FileNotFoundError:
+    print("❌ Error: swagger.json file not found. Please ensure it exists in the current directory - ideally you run the sample from the azure-ai-agents-openapi-tool folder.")
+    exit(1)
 
 auth = OpenApiAnonymousAuthDetails()
 
