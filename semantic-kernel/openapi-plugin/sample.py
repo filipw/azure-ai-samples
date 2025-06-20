@@ -16,11 +16,11 @@ load_dotenv()
 
 async def main():
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    swagger_path = os.path.join(current_dir, "swagger.json")
+    swagger_path = os.path.join(current_dir, "fastapi_swagger.json")
     
     kernel = Kernel()
     
-    # assuming you run the webapi sample on localhost:5270
+    # assuming you already run the FastAPI server on localhost:5270
     api_host = os.environ.get("API_HOST", "http://localhost:5270")
     with open(swagger_path, 'r') as file:
         swagger_content = file.read().replace("{TUNNEL_URL}", api_host)

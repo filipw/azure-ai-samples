@@ -6,3 +6,5 @@ ipykernel
 python-dotenv
 jsonref
 semantic_kernel[azure]
+fastapi
+uvicorn
