@@ -3,15 +3,13 @@
 ### Prerequisites
 
  - [Dev Tunnel](https://learn.microsoft.com/en-us/azure/developer/dev-tunnels/get-started) CLI installed
- - [Dotnet SDK](https://dotnet.microsoft.com/download) installed
 
 ### Preparation
 
-1. Build the .NET Web API:
+1. Run the API server:
 
 ```bash
-cd webapi
-dotnet run
+python fastapi_weather.py
 ```
 
 This will start a web server on `http://localhost:5270`.

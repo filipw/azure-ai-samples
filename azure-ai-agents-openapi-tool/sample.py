@@ -23,7 +23,7 @@ else:
     print(f"🔗 Using tunnel URL: {tunnel_url}")
 
 try:
-    with open('./swagger.json', 'r') as f:
+    with open('./fastapi_swagger.json', 'r') as f:
         swagger_content = f.read()
         swagger_content = swagger_content.replace("{TUNNEL_URL}", tunnel_url)
         openapi_spec = jsonref.loads(swagger_content)
@@ -42,7 +42,7 @@ with project_client:
     agent = project_client.agents.create_agent(
         model="gpt-4o-mini",
         name="weather-assistant",
-        instructions="You are a helpful weather expert",
+        instructions="You are a helpful weather expert. Use the OpenAPI tool to provide weather forecasts.",
         tools=openapi.definitions
     )
     print(f"✅ Created agent, ID: {agent.id}")

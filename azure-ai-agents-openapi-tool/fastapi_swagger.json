@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "webapi | v1",
+    "title": "Weather Forecast API",
     "version": "1.0.0"
   },
   "servers": [
@@ -64,9 +64,5 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "webapi"
-    }
-  ]
+  "tags": []
 }
