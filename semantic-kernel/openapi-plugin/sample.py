@@ -1,9 +1,9 @@
 import asyncio
 import os
 import sys
+import requests
 
 from dotenv import load_dotenv
-import json
 from semantic_kernel.agents import ChatCompletionAgent
 from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion
 from semantic_kernel import Kernel
@@ -15,26 +15,39 @@ if parent_dir not in sys.path:
 load_dotenv()
 
 async def main():
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    swagger_path = os.path.join(current_dir, "fastapi_swagger.json")
-    
     kernel = Kernel()
     
-    # assuming you already run the FastAPI server on localhost:5270
     api_host = os.environ.get("API_HOST", "http://localhost:5270")
-    with open(swagger_path, 'r') as file:
-        swagger_content = file.read().replace("{TUNNEL_URL}", api_host)
+    openapi_url = f"{api_host}/openapi.json"
     
-    swagger_dict = json.loads(swagger_content)
+    # option 1: pre-fetch OpenAPI specification dynamically from the running server
+    # try:
+    #     response = requests.get(openapi_url)
+    #     if response.status_code == 200:
+    #         swagger_dict = response.json()
+    #         print(f"✅ Successfully fetched OpenAPI spec from {openapi_url}")
+    #     else:
+    #         raise Exception(f"Failed to fetch OpenAPI spec: HTTP {response.status_code}")
+    # except Exception as e:
+    #     print(f"❌ Error fetching OpenAPI spec from {openapi_url}: {e}")
+    #     print(f"Make sure the FastAPI server is running on {api_host}")
+    #     return
 
-    # add the plugin to the kernel
+    # # add the plugin to the kernel
+    # weather_plugin = kernel.add_plugin_from_openapi(
+    #     plugin_name="WeatherPlugin",
+    #     openapi_parsed_spec=swagger_dict
+    # )
+    # print("✅ Created OpenAPI plugin")
+
+    # option 2: create a plugin from a URL directly
     weather_plugin = kernel.add_plugin_from_openapi(
         plugin_name="WeatherPlugin",
-        openapi_parsed_spec=swagger_dict
+        openapi_document_path=openapi_url,
     )
-    print("✅ Created OpenAPI plugin")
+    print("✅ Created OpenAPI plugin from URL")
     
-    # now set up an agent that uses the plugin
+    # set up an agent that uses the plugin
     agent = ChatCompletionAgent(
         service=AzureChatCompletion(
             deployment_name=os.environ.get("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4o-mini"),

@@ -8,3 +8,4 @@ jsonref
 semantic_kernel[azure]
 fastapi
 uvicorn
+requests
