@@ -1,12 +1,10 @@
 import os
 import time
-import json
-import jsonref
-import re
 from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
 from azure.ai.projects.models import OpenApiTool, OpenApiAnonymousAuthDetails
 from dotenv import load_dotenv
+import requests
 
 load_dotenv()
 
@@ -22,13 +20,18 @@ if not tunnel_url:
 else:
     print(f"🔗 Using tunnel URL: {tunnel_url}")
 
+# pre-fetch OpenAPI specification dynamically from the running server
 try:
-    with open('./fastapi_swagger.json', 'r') as f:
-        swagger_content = f.read()
-        swagger_content = swagger_content.replace("{TUNNEL_URL}", tunnel_url)
-        openapi_spec = jsonref.loads(swagger_content)
-except FileNotFoundError:
-    print("❌ Error: swagger.json file not found. Please ensure it exists in the current directory - ideally you run the sample from the azure-ai-agents-openapi-tool folder.")
+    openapi_url = f"{tunnel_url}/openapi.json"
+    response = requests.get(openapi_url)
+    if response.status_code == 200:
+        openapi_spec = response.json()
+        print(f"✅ Successfully fetched OpenAPI spec from {openapi_url}")
+    else:
+        raise Exception(f"Failed to fetch OpenAPI spec: HTTP {response.status_code}")
+except Exception as e:
+    print(f"❌ Error fetching OpenAPI spec from {openapi_url}: {e}")
+    print(f"Make sure the FastAPI server is running and accessible at {tunnel_url}")
     exit(1)
 
 auth = OpenApiAnonymousAuthDetails()
@@ -80,9 +83,8 @@ with project_client:
         print(f"❌ Run failed: {run.last_error}")
 
     project_client.agents.delete_agent(agent.id)
-    print(f"🧹 Cleaned up: Agent deleted")
-
-    print(f"\n💬 Conversation summary:")
+    print("🧹 Cleaned up: Agent deleted")
+    print("\n💬 Conversation summary:")
     messages = project_client.agents.list_messages(thread_id=thread.id)
     
     for msg in reversed(messages.data):

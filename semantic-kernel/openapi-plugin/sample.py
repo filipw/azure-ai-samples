@@ -24,7 +24,7 @@ async def main():
     # try:
     #     response = requests.get(openapi_url)
     #     if response.status_code == 200:
-    #         swagger_dict = response.json()
+    #         openapi_dict = response.json()
     #         print(f"✅ Successfully fetched OpenAPI spec from {openapi_url}")
     #     else:
     #         raise Exception(f"Failed to fetch OpenAPI spec: HTTP {response.status_code}")
@@ -36,7 +36,7 @@ async def main():
     # # add the plugin to the kernel
     # weather_plugin = kernel.add_plugin_from_openapi(
     #     plugin_name="WeatherPlugin",
-    #     openapi_parsed_spec=swagger_dict
+    #     openapi_parsed_spec=openapi_dict
     # )
     # print("✅ Created OpenAPI plugin")
 
