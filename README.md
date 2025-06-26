@@ -28,7 +28,7 @@ AZURE_OPENAI_ENDPOINT=<endpoint root>
 AZURE_OPENAI_API_KEY=<key>
 ```
 
-> The Azure AI Inference samples may require additional environment variables. Those are documented in the code.
+> Some samples may require additional environment variables. Those are documented in the code.
 
 ## AI Inference
 
