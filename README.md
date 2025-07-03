@@ -52,5 +52,6 @@ AZURE_OPENAI_API_KEY=<key>
 |-------------|-------------|-----------|------|
 | 💻 [Semantic Kernel: Single agent tool calling](./semantic-kernel/chatcompletions-plugin/) | 📝 Using Semantic Kernal with Chat Completion Agents for tool calling (plugin) | N/A | Program |
 | 💻 [Semantic Kernel + AI Agents: Single agent tool calling](./semantic-kernel/azure-ai-agents-plugin/) | 📝 Using Semantic Kernal with Azure AI Agents for tool calling (plugin) | N/A | Program |
+| 💻 [Semantic Kernel: OpenAPI Plugin](./semantic-kernel/openapi-plugin/) | 📝 Using Semantic Kernel for calling tools (plugin) defined via OpenAPI HTTP contract. | N/A | Program |
 | 💻 [Semantic Kernel: RAG with local vector store](./semantic-kernel/chatcompletions-agent-rag/) | 📝 Using Semantic Kernel with a simple local vector store for Retrieval-Augmented Generation (RAG) on sample data | N/A | Program |
 | 💻 [Semantic Kernel: HyPE (Hypothetical Prompt Embeddings)](./semantic-kernel/chatcompletions-agent-hype-rag/) | 📝 Using Semantic Kernel with a local vector store for Retrieval-Augmented Generation (RAG) using the HyPE (Hypothetical Prompt Embeddings) pattern | N/A | Program | 
