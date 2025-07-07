@@ -17,6 +17,10 @@ if parent_dir not in sys.path:
 
 load_dotenv()
 
+async def async_input(prompt: str) -> str:
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(None, input, prompt)
+
 @dataclass
 class Document:
     id: str
@@ -173,25 +177,36 @@ async def main():
     )
     print("✅ Created Quantum Projects RAG agent")
     
-    queries = [
-        "What is Project Mousetrap and what are its goals?",
-        "Which quantum projects have the largest budgets?",
-        "Tell me about quantum key distribution research",
-    ]
+    print("\nWelcome to the Quantum Projects Chat!")
+    print("Ask me anything about quantum research projects. Type 'quit' or 'exit' to end the conversation.")
+    print("Example questions:")
+    print("  - What is Project Mousetrap and what are its goals?")
+    print("  - Which quantum projects have the largest budgets?")
+    print("  - Tell me about quantum key distribution research")
     
     thread = None
     
-    for query in queries:
-        print(f"\n💬 User: {query}")
-        
-        response = await agent.get_response(
-            messages=query,
-            thread=thread,
-        )
-        print(f"\n🤖 Agent: {response}")
-        thread = response.thread
-        
-        await asyncio.sleep(1)
+    try:
+        while True:
+            user_input = (await async_input("\n💬 User: ")).strip()
+            if user_input.lower() in ['quit', 'exit', 'bye']:
+                break
+            if not user_input:
+                continue
+            
+            try:
+                response = await agent.get_response(
+                    messages=user_input,
+                    thread=thread,
+                )
+                print(f"\n🤖 Agent: {response}")
+                thread = response.thread
+                
+            except Exception as e:
+                print(f"❌ Error getting response: {e}")
+                
+    except KeyboardInterrupt:
+        print("\n\n👋 Chat interrupted. Goodbye!")
     
     print("\n🧹 Cleaning up resources...")
     if thread:
