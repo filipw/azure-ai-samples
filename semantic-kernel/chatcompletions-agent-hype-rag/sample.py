@@ -324,7 +324,7 @@ async def main():
     documents = load_and_chunk_projects_data(data_path)
     print(f"📚 Created {len(documents)} document chunks")
     
-    # HyPE INDEXING PHASE
+    # HyPE indexing phase
     print("\n🧠 Starting HyPE indexing phase...")
     print("=" * 60)
     
@@ -350,7 +350,6 @@ async def main():
     # create the HyPE-enhanced quantum projects plugin
     quantum_plugin = QuantumProjectsHyPEPlugin(hype_store, embeddings_service)
     
-    # create agent using the proper ChatCompletionAgent pattern like the reference sample
     agent = ChatCompletionAgent(
         service=chat_completion_service,
         name="QuantumProjectsHyPEAgent",
