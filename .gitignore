@@ -401,3 +401,4 @@ FodyWeavers.xsd
 .venv/
 azure-ai-agents-openapi-tool/webapi/webapi.http
 azure-ai-samples.sln
+.sample/
