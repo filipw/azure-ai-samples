@@ -148,7 +148,7 @@ async def main():
     vector_store.set_embeddings_service(embeddings_service)
     
     # load and process the quantum projects data
-    data_path = os.path.join(os.path.dirname(__file__), "data", "projects.md")
+    data_path = os.path.join(os.path.dirname(__file__), "..", "shared-data", "projects.md")
     print(f"📄 Loading quantum projects data from {data_path}")
     
     documents = load_and_chunk_projects_data(data_path)

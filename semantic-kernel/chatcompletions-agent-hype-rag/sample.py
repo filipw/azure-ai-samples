@@ -318,7 +318,7 @@ async def main():
     hype_store.set_services(embeddings_service, chat_completion_service)
     
     # load and process the demo data
-    data_path = os.path.join(os.path.dirname(__file__), "data", "projects.md")
+    data_path = os.path.join(os.path.dirname(__file__), "..", "shared-data", "projects.md")
     print(f"\n📄 Loading quantum projects data from {data_path}")
     
     documents = load_and_chunk_projects_data(data_path)
