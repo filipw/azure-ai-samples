@@ -57,21 +57,34 @@ class HyPEVectorStore:
             question_generator = kernel.add_function(
                 plugin_name="HyPE",
                 function_name="GenerateQuestions",
-                prompt="""You are an expert at generating hypothetical questions from document content for information retrieval.
+                prompt="""You are an expert at generating highly specific hypothetical questions from document content for information retrieval.
 
-Analyze the following text and generate 3-5 essential questions that, when answered, would capture the main points and core meaning of the content.
+Your task is to analyze the text and generate 3-5 distinctive questions that would lead someone to search for this EXACT content. Make each question uniquely identifying by including:
 
-These questions should:
-- Be specific and detailed enough to retrieve this exact content
-- Cover different aspects of the information presented  
-- Be phrased as natural questions a user might ask
-- Focus on key facts, numbers, goals, and important details
-- Be the type of questions that would lead someone to search for this specific information
+SPECIFICITY REQUIREMENTS:
+- Include specific numbers, dollar amounts, percentages, dates, and technical metrics mentioned
+- Reference unique project names, technologies, and methodologies described
+- Capture distinctive challenges, achievements, or goals that set this content apart
+- Use comparative language when appropriate (e.g., "largest", "first to achieve", "most advanced")
+- Include technical terminology and domain-specific details
+
+STYLE REQUIREMENTS:
+- Phrase as natural questions a researcher or professional might ask
+- Start with question words: "What", "Which", "How", "When", "Where", "Why"
+- Make questions searchable - they should lead to THIS specific content, not generic information
+- Avoid generic questions that could apply to multiple projects or documents
+
+EXAMPLES OF GOOD vs BAD:
+❌ BAD: "What is the project's budget?" (too generic)
+✅ GOOD: "Which quantum project has a $50 million budget dedicated to QKD infrastructure?"
+
+❌ BAD: "What are the project goals?" (too generic) 
+✅ GOOD: "What quantum project aims to stabilize 200 ion qubits by 2025 with 0.005% error rate?"
 
 Text to analyze:
 {{$chunk_content}}
 
-Generate only the questions, one per line, without numbering or bullet points:""",
+Generate exactly 3-5 highly specific, distinctive questions (one per line, no numbering):""",
                 template_format="semantic-kernel"
             )
             
@@ -365,15 +378,24 @@ async def main():
     )
     print("✅ Created HyPE-Enhanced Quantum Projects Agent")
     
-    # test queries to demonstrate HyPE capabilities
+    # test queries designed to showcase HyPE's strength in bridging the question-document style gap
     test_queries = [
-        "What is Project Mousetrap and what are its goals?",
-        "Which quantum projects have the largest budgets?",
-        "Tell me about quantum key distribution research",
+        # Specific factual queries that benefit from question-to-question matching
+        "What quantum project achieved 150 ion qubits with 0.005% error rate?",
+        "Which project has the largest budget at $50 million and what is its focus?",
+        "What are the specific timeline milestones for reaching 500 qubits by 2030?",
+        
+        # Comparative queries that require understanding relationships between projects
+        "Which projects focus on fault-tolerant quantum computation and error correction?",
+        
+        # Complex queries that test semantic understanding and style bridging
+        "What challenges do ion-trap quantum systems face when scaling beyond 200 qubits?",
+        "Which quantum technologies can handle real-time data processing at scale?"
     ]
     
     print("\n" + "="*80)
     print("🎯 HyPE RETRIEVAL DEMO - Question-to-Question Matching")
+    print("Demonstrating HyPE's advantages in bridging the query-document style gap")
     print("="*80)
     
     thread = None
@@ -389,10 +411,10 @@ async def main():
         )
         
         if response:
-            print(f"\n🤖 Agent Response:\n{response}")
+            print(f"\n🤖 HyPE-Enhanced Response:\n{response}")
             thread = response.thread
         
-        await asyncio.sleep(1)
+        await asyncio.sleep(2)
     
     print(f"\n{'='*80}")
     if thread:
