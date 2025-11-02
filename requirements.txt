@@ -10,3 +10,4 @@ fastapi
 uvicorn
 requests
 numpy
+agent-framework

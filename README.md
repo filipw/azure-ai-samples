@@ -1,6 +1,6 @@
-# Azure AI Samples
+# Azure AI Agents Samples
 
-A collection of various interesting Azure AI Samples.
+A collection of various interesting Azure AI Agents Samples.
 
 ## Installation
 
@@ -24,6 +24,7 @@ Sample using Azure OpenAI directly require the following variables:
 
 ```bash
 AZURE_OPENAI_DEPLOYMENT_NAME=<deployment name>
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=<chat deployment name> # for Agent Framework samples
 AZURE_OPENAI_ENDPOINT=<endpoint root>
 AZURE_OPENAI_API_KEY=<key>
 ```
@@ -56,3 +57,9 @@ AZURE_OPENAI_API_KEY=<key>
 | 💻 [Semantic Kernel: RAG with local vector store](./semantic-kernel/chatcompletions-agent-rag/) | 📝 Using Semantic Kernel with a simple local vector store for Retrieval-Augmented Generation (RAG) on sample data | N/A | Program |
 | 💻 [Semantic Kernel: HyPE (Hypothetical Prompt Embeddings)](./semantic-kernel/chatcompletions-agent-hype-rag/) | 📝 Using Semantic Kernel with a local vector store for Retrieval-Augmented Generation (RAG) using the HyPE (Hypothetical Prompt Embeddings) pattern | [Link](https://www.strathweb.com/2025/07/rag-agent-with-hype-pattern-using-semantic-kernel/) | Program | 
 | 💻 [Semantic Kernel: HyDE (Hypothetical Document Embeddings)](./semantic-kernel/chatcompletions-agent-hyde-rag/) | 📝 Using Semantic Kernel with a local vector store for Retrieval-Augmented Generation (RAG) using the HyDE (Hypothetical Document Embeddings) pattern | N/A | Program | 
+
+## Agent Framework Agents
+
+| Sample Name | Description | Blog Post | Type |
+|-------------|-------------|-----------|------|
+| 💻 [Agent Framework: Single chat agent tool calling](./agent-framework/tool-calling/) | 📝 Using Agent Framework for tool calling (single AzureOpenAIChatClient agent). | N/A | Program |
