@@ -15,7 +15,8 @@ pip install -r requirements.txt
 Create an [Azure AI Foundry project](https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/create-projects?tabs=ai-studio) in Azure. Once ready, set the following environment variable (using `.env` file or directly in your shell):
 
 ```bash
-AZURE_AI_PROJECT_CONNECTION_STRING=<Azure AI Project connection string>
+AZURE_AI_PROJECT_ENDPOINT=<Azure AI Project endpoint> # for some samples
+AZURE_AI_PROJECT_CONNECTION_STRING=<Azure AI Project connection string> # for some samples
 ```
 
 ### Azure OpenAI
